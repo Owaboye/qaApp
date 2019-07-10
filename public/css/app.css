@@ -11131,3 +11131,7 @@ a.text-dark:focus {
   color: #fff;
 }
 
+.counters form.form-delete {
+  display: inline !important;
+}
+

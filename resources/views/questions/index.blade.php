@@ -4,11 +4,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @include('layouts._message')
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
                         <h3>Questions</h3>
-                        <div class="ml-auto"><a href="{{route('questions.create')}}" class="btn btn-primary btn-sm">Ask Question</a></div>
+                        <div class="ml-auto"><a href="{{route('questions.create')}}" class="btn btn-outline-secondary btn-sm">Ask Question</a></div>
                     </div>
                 </div>
 
@@ -29,11 +30,22 @@
                             </div>
                          </div>
                         <div class="media-body">
-                            <h4 class="mt-0"><a href="{{$question->url}}"><strong>{{$question->title}}</strong></a></h4>
-                            <p class="lead">Question asked By <a href="{{$question->user->url}}">{{$question->user->name}}</a>
+                            <div class="d-flex align-items-center">
+                                 <h5 class="mt-0"><a href="{{$question->url}}"><strong>{{$question->title}}</strong></a></h5>
+                                 <div class="ml-auto">
+                                    <a href="{{route('questions.edit', ['id' => $question->id])}}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                    <form class="form-delete ml-auto" action="{{route('questions.destroy', $question->id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-outline-danger btn-sm" type="submit" onclick="return confirm('Are you sure you want to detete?')">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                           
+                            <p class="lead">Question by <a href="{{$question->user->url}}">{{$question->user->name}}</a>
                                  {{$question->created_date}}
                             </p>
-                            {{str_limit($question->body)}}
+                            {{str_limit($question->body, 50)}}
                         </div>
                     </div>
                        <hr>
