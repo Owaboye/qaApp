@@ -17,7 +17,7 @@
       font-size: 2em;
   }
 
-  .vote, .status{
+  .vote, .answer{
       width: 60px;
       height: 60px;
   }
@@ -40,9 +40,58 @@
 
   }
 
+  .view{
+    margin-top: 10px;
+  }
+}
   form.form-delete{
-    display: inline !important;
+    display: inline;
   }
 
-  
-}
+  .votes-control{
+    margin-right: 30px;
+    min-width: 60px;
+    text-align: center;
+    color: $gray-700;
+
+    a, span{
+      display: block;
+    }
+
+    span{
+      &.votes-count{
+        font-size: 25px;
+      }
+
+      &.favorite-count{
+        font-size: 12px;
+        color: $warning;
+      }
+    }
+
+    a{
+      cursor: pointer;
+      color: $gray-600;
+
+      &.off, &.off:hover{
+        color: $gray-600;
+      }
+
+      &.off, &.off:hover{
+        color: $gray-600;
+      }
+
+      &.favourite{
+        &.favourited, &.favourited:hover{
+          color: $yellow;
+        }
+      }
+
+      &.answer-accepted{
+        color: $green;
+      }
+    }
+
+
+  }
+

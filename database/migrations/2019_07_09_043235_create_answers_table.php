@@ -20,6 +20,7 @@ class CreateAnswersTable extends Migration
             $table->text('body');
             $table->integer('votes_count')->default(0);
             $table->timestamps();
+            
         });
     }
 

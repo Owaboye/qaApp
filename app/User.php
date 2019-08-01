@@ -49,4 +49,12 @@ class User extends Authenticatable
     public function answers(){
         return $this->hasMany(Answer::class);
     }
+
+    public function getAvatarAttribute(){
+        // $email = $this->email;
+        // $default = '';
+        // $size = 32;
+
+        return asset('uploads/users/1.png');
+    }
 }

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             @include('layouts._message')
             <div class="card">
                 <div class="card-header">
@@ -18,27 +18,39 @@
                    @foreach ($questions as $question )
 
                     <div class="media">
-                        <div class="flex flex-column counters"> 
+                        <div class="d-flex flex-column counters"> 
                             <div class="vote">  
                                 <strong>{{$question->votes}}</strong> {{ str_plural('vote', $question->votes)}}
                             </div>
                             <div class="status {{ $question->status }}">  
-                                <strong>{{$question->answers}}</strong> {{ str_plural('answer', $question->answers)}}
+                                <strong>{{$question->answers_count}}</strong> {{ str_plural('answer', $question->answers_count)}}
                             </div>
                             <div class="view">  
                                 {{$question->views .' '. str_plural('view', $question->views)}}
                             </div>
                          </div>
+                         {{-- @if(Auth::user()-> --}}
                         <div class="media-body">
                             <div class="d-flex align-items-center">
                                  <h5 class="mt-0"><a href="{{$question->url}}"><strong>{{$question->title}}</strong></a></h5>
                                  <div class="ml-auto">
-                                    <a href="{{route('questions.edit', ['id' => $question->id])}}" class="btn btn-outline-secondary btn-sm">Edit</a>
-                                    <form class="form-delete ml-auto" action="{{route('questions.destroy', $question->id)}}" method="post">
+                                 
+                                    {{-- @if(Auth::user()->can('update-question', $question)) --}}
+                                    @can('update', $question)
+                                         <a href="{{route('questions.edit', ['id' => $question->id])}}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                    @endcan
+                                    {{-- @endif --}}
+
+                                    {{-- @if(Auth::user()->can('delete-question', $question)) --}}
+                                    @can('delete', $question)
+                                    <form class="form-delete" action="{{route('questions.destroy', $question->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-outline-danger btn-sm" type="submit" onclick="return confirm('Are you sure you want to detete?')">Delete</button>
                                     </form>
+                                    @endcan
+                                    {{-- @endif --}}
+
                                 </div>
                             </div>
                            
